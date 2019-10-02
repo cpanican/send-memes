@@ -1,0 +1,27 @@
+{
+  "name": "send-memes",
+  "version": "1.0.0",
+  "description": "Send memes via SMS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cpanican/send-memes.git"
+  },
+  "author": "Chris Panican",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cpanican/send-memes/issues"
+  },
+  "homepage": "https://github.com/cpanican/send-memes#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "twilio": "^3.35.0"
+  },
+  "engines": {
+    "node": "12.10.0"
+  }
+}
