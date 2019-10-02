@@ -72,21 +72,35 @@ app.post('/sms', (req, res) => {
   }
   
   else if (req.body.Body == 'hmmm') {
-    data.getData('showerthoughts', 1).then(fetched => {
-      const title = fetched[0].data.title;
-      message.body(`🤔 interesting stuff 🧐\n"${title}"`);
-      res.writeHead(200, {'Content-Type': 'text/xml'});
-      res.end(twiml.toString());
+    data.getData('showerthoughts', 3).then(fetched => {
+      fetched.some(function(arr) {
+        if (arr.data.over_18) {
+          console.log(over_18);
+        } else {
+          const title = arr.data.title;
+          message.body(`🤔 interesting stuff 🧐\n"${title}"`);
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+          return true;
+        }
+      })
     });
   }
   
   else if (req.body.Body == 'joke') {
-    data.getData('jokes', 1).then(fetched => {
-      const title = fetched[0].data.title;
-      const selftext = fetched[0].data.selftext;
-      message.body(`😂 joke of the day 🤣\n"${title}"\n${selftext}`);
-      res.writeHead(200, {'Content-Type': 'text/xml'});
-      res.end(twiml.toString());
+    data.getData('jokes', 3).then(fetched => {
+      fetched.some(function(arr) {
+        if (arr.data.over_18) {
+          console.log("over_18:", true);
+        } else {
+          const title = arr.data.title;
+          const selftext = arr.data.selftext;
+          message.body(`😂 joke of the day 🤣\n"${title}"\n${selftext}`);
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+          return true;
+        }
+      })
     });
   }
   
