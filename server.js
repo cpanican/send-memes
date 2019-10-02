@@ -19,6 +19,8 @@ function httpsGet(name) {
       path: `/r/${name}/top/.json?sort=top&t=day&limit=1`,
       method: 'GET',
     };
+
+    console.log(options);
     
     const request = https.request(options, (response) => {
       response.setEncoding('utf8');
@@ -65,6 +67,7 @@ app.post('/sms', (req, res) => {
   
   else if (req.body.Body == 'hmmm') {
     const response = httpsGet('showerthoughts');
+    console.log("HMMM RESPONSE: ", response);
     const title = response.data.children[0].data.title;
     message.body(
       `🤔 interesting stuff 🧐\n"${title}\n${selftext}"`
@@ -72,12 +75,15 @@ app.post('/sms', (req, res) => {
   }
   
   else if (req.body.Body == 'joke') {
-    const response = httpsGet('jokes');
-    const title = response.data.children[0].data.title;
-    const selftext = response.data.children[0].data.selftext;
-    message.body(
-      `😂 joke of the day 🤣\n"${title}\n${selftext}"`
-    );
+    async function sequence() {
+      const response = await httpsGet('jokes');
+      console.log("JOKE RESPONSE: ", response);
+      const title = response.data.children[0].data.title;
+      const selftext = response.data.children[0].data.selftext;
+      message.body(
+        `😂 joke of the day 🤣\n"${title}\n${selftext}"`
+      );
+    }
   }
   
   else {
