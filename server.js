@@ -1,5 +1,4 @@
 const http = require('http');
-const https = require('https');
 const express = require('express');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const bodyParser = require('body-parser');
@@ -17,21 +16,29 @@ app.post('/sms', (req, res) => {
   if (req.body.Body == 'programmer') {
     message.body('👩‍💻 programmer meme 👨‍💻');
     message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
   }
   
   else if (req.body.Body == 'normie') {
     message.body('🙄 normie meme 😒');
     message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
   }
   
   else if (req.body.Body == 'dank') {
     message.body('😎 dank meme 👽');
     message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
   }
   
   else if (req.body.Body == 'cute') {
     message.body('😍 cute meme 🥺');
     message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
   }
   
   else if (req.body.Body == 'hmmm') {
@@ -40,6 +47,8 @@ app.post('/sms', (req, res) => {
       message.body(
         `🤔 interesting stuff 🧐\n"${title}"`
       );
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+      res.end(twiml.toString());
     });
   }
   
@@ -50,6 +59,8 @@ app.post('/sms', (req, res) => {
       message.body(
         `😂 joke of the day 🤣\n"${title}\n${selftext}"`
       );
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+      res.end(twiml.toString());
     });
   }
   
@@ -57,10 +68,9 @@ app.post('/sms', (req, res) => {
     message.body(
       '😎 Meme Menu 😎\nTry replying with: programmer, normie, dank, cute, hmmm, or joke'
     );
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
   }
-
-  res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
 });
 
 http.createServer(app).listen(port, () => {
