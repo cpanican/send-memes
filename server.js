@@ -42,8 +42,8 @@ app.post('/sms', (req, res) => {
   }
   
   else if (req.body.Body == 'hmmm') {
-    data.getData('showerthoughts', 1).then(res => {
-      const title = res[0].data.title;
+    data.getData('showerthoughts', 1).then(fetched => {
+      const title = fetched[0].data.title;
       message.body(
         `🤔 interesting stuff 🧐\n"${title}"`
       );
@@ -53,9 +53,9 @@ app.post('/sms', (req, res) => {
   }
   
   else if (req.body.Body == 'joke') {
-    data.getData('jokes', 1).then(res => {
-      const title = res[0].data.title;
-      const selftext = res[0].data.selftext;
+    data.getData('jokes', 1).then(fetched => {
+      const title = fetched[0].data.title;
+      const selftext = fetched[0].data.selftext;
       message.body(
         `😂 joke of the day 🤣\n"${title}\n${selftext}"`
       );
