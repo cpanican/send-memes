@@ -53,10 +53,22 @@ app.post('/sms', (req, res) => {
   }
   
   else if (req.body.Body == 'cute') {
-    message.body('😍 cute meme 🥺');
-    message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
+    data.getData('aww', 1).then(fetched => {
+      const is_video = fetched[0].data.is_video;
+      const title = fetched[0].data.title;
+      if (is_video) {
+        const thumbnail = fetched[0].data.thumbnail;
+        const url = fetched[0].data.title;
+        message.body(`😍 cute video 🥺\n"${title}"\nWatch vid: ${url}`);
+        message.media(thumbnail);
+      } else {
+        const src = fetched[0].data.url;
+        message.body(`😍 aww cute 🥺\n"${title}"`);
+        message.media(src);
+      }
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+      res.end(twiml.toString());
+    });
   }
   
   else if (req.body.Body == 'hmmm') {
