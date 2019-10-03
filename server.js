@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
   const message = twiml.message();
-  if (req.body.Body == 'programmer') {
+  const textInput = req.body.Body.toLowerCase();
+  if (textInput == 'programmer') {
     data.getData('programmerhumor', 1).then(fetched => {
       const is_self = fetched[0].data.is_self;
       const title = fetched[0].data.title;
@@ -30,7 +31,7 @@ app.post('/sms', (req, res) => {
     });
   }
   
-  else if (req.body.Body == 'normie') {
+  else if (textInput == 'normie') {
     data.getData('memes', 1).then(fetched => {
       const title = fetched[0].data.title;
       const src = fetched[0].data.url;
@@ -41,7 +42,7 @@ app.post('/sms', (req, res) => {
     });
   }
   
-  else if (req.body.Body == 'dank') {
+  else if (textInput == 'dank') {
     data.getData('dankmemes', 1).then(fetched => {
       const title = fetched[0].data.title;
       const src = fetched[0].data.url;
@@ -52,7 +53,7 @@ app.post('/sms', (req, res) => {
     });
   }
   
-  else if (req.body.Body == 'cute') {
+  else if (textInput == 'cute') {
     data.getData('aww', 1).then(fetched => {
       const is_video = fetched[0].data.is_video;
       const title = fetched[0].data.title;
@@ -71,7 +72,7 @@ app.post('/sms', (req, res) => {
     });
   }
   
-  else if (req.body.Body == 'hmmm') {
+  else if (textInput == 'hmmm' || textInput == 'hmm') {
     data.getData('showerthoughts', 3).then(fetched => {
       fetched.some(function(arr) {
         if (arr.data.over_18) {
@@ -87,7 +88,7 @@ app.post('/sms', (req, res) => {
     });
   }
   
-  else if (req.body.Body == 'joke') {
+  else if (textInput == 'joke') {
     data.getData('jokes', 3).then(fetched => {
       fetched.some(function(arr) {
         if (arr.data.over_18) {
