@@ -104,6 +104,14 @@ app.post('/sms', (req, res) => {
       })
     });
   }
+
+  else if (textInput == 'github') {
+    message.body(
+      'Check out the code on GitHub! https://github.com/cpanican/send-memes'
+    );
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+  }
   
   else {
     message.body(
